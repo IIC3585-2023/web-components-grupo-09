@@ -1,75 +1,76 @@
-import { html, css, LitElement } from 'lit';
-
-class TreeItem extends LitElement {
-    static styles = css`
-    .tree {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
+class TreeItem extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+      this.isOpen = false;
     }
-
-    .tree-item {
-      margin-left: 1em;
-      background-color: #f1f1f1;
-      color: #000;
-      transition: background-color 0.3s;
+  
+    connectedCallback() {
+      this.render();
+      this.addEventListeners();
     }
-
-    .tree-item:hover {
-      background-color: #e8e8e8;
+  
+    addEventListeners() {
+      this.shadowRoot.querySelector('.toggle').addEventListener('click', () => {
+        this.toggleOpen();
+        this.render();
+      });
     }
-
-    .toggle {
-      cursor: pointer;
+  
+    toggleOpen() {
+      this.isOpen = !this.isOpen;
     }
-
-    .toggle::before {
-      content: url(public/arrow.png);
-      height: 5px;
-      display: inline-block;
-      margin-right: 0.5em;
-      transition: transform 0.3s;
+  
+    render() {
+      const template = `
+        <style>
+          .tree-item {
+            margin-left: 1em;
+            background-color: #f1f1f1;
+            color: #000;
+            transition: background-color 0.3s;
+          }
+  
+          .tree-item:hover {
+            background-color: #e8e8e8;
+          }
+  
+          .toggle {
+            cursor: pointer;
+          }
+  
+          .toggle::before {
+            content: url(public/arrow.png);;
+            display: inline-block;
+            margin-right: 0.5em;
+            transition: transform 0.3s;
+          }
+  
+          .open .toggle::before {
+            transform: rotate(90deg);
+          }
+  
+          .children {
+            display: none;
+          }
+  
+          .open .children {
+            display: block;
+          }
+        </style>
+        <ul class="tree">
+          <li class="tree-item ${this.isOpen ? 'open' : ''}">
+            <span class="toggle"></span>
+            <slot></slot>
+            <ul class="children ${this.isOpen ? 'open' : ''}">
+              <slot name="tree-item"></slot>
+            </ul>
+          </li>
+        </ul>
+      `;
+  
+      this.shadowRoot.innerHTML = template;
     }
-
-    .open .toggle::before {
-      transform: translate(70%, 150%) rotate(90deg);
-    }
-
-    .children {
-      display: none;
-    }
-
-    .open .children {
-      display: block;
-    }
-  `;
-
-  static properties = {
-    open: { type: Boolean },
-  };
-
-  constructor() {
-    super();
-    this.open = false;
   }
-
-  toggleOpen() {
-    this.open = !this.open;
-  }
-
-  render() {
-    return html`
-      <ul class="tree">
-        <li class="tree-item ${this.open ? 'open' : ''}">
-          <span class="toggle" @click="${this.toggleOpen}"></span>
-          <slot></slot>
-          <ul class="children ${this.open ? 'open' : ''}">
-            <slot name="tree-item"></slot>
-          </ul>
-        </li>
-      </ul>
-    `;
-  }
-}
-
-customElements.define('tree-item', TreeItem);
+  
+  customElements.define('tree-item', TreeItem);
