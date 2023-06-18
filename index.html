@@ -2,18 +2,24 @@
 <html>
 
 <head>
-    <script type="module" src="first-element.js"></script>
-    <style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-            font-size: 1.5em;
-            padding-left: 0.5em;
-        }
-    </style>
+    <script type="module" src="productComponent.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <!-- fuente para las estrellas -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
 </head>
 
 <body>
-    <my-element></my-element>
-</body>
+    <div id="app">
+        <div class="product-list">
+            <rating-component rating="4" discount="30" image="kindle.jpg" title="Producto 1" description="Consequat in incididunt ea tempor voluptate ad qui consectetur deserunt non aliqua culpa qui." price="99.99"></rating-component>
+            <rating-component rating="2" discount="30" image="kindle.jpg" title="Producto 1" description="Et enim pariatur quis dolor dolor ut tempor reprehenderit. Sunt quis tempor consequat est mollit veniam magna consequat. Mollit exercitation do Lorem sint ut sint ullamco aliqua. Enim voluptate ex ipsum mollit do. Id do anim quis in esse qui occaecat id eu labore occaecat. Irure cupidatat dolore ea magna proident reprehenderit sunt mollit eiusmod labore dolore culpa aute ut. Aute laboris deserunt deserunt aute qui sunt nostrud exercitation laboris Lorem dolore sint nostrud officia."
+                price="99.99"></rating-component>
+            <rating-component rating="1" discount="30" image="kindle2.jpg" title="Producto 1" description="Proident voluptate aliquip labore aliquip sunt tempor deserunt proident eiusmod." price="99.99"></rating-component>
+            <rating-component rating="3" discount="30" image="kindle.jpg" title="Producto 1" description="Ea sunt est sunt magna veniam irure labore cillum mollit et." price="99.99"></rating-component>
 
-</html>
+
+        </div>
+
+    </div>
+</body>
