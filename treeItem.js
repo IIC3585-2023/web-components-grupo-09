@@ -24,6 +24,9 @@ class TreeItem extends HTMLElement {
     render() {
       const template = `
         <style>
+          ul {
+            list-style-type: none;
+          }
           .tree-item {
             margin-left: 1em;
             background-color: #f1f1f1;
