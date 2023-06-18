@@ -24,14 +24,15 @@ class TreeItem extends LitElement {
     }
 
     .toggle::before {
-      content: '▶';
+      content: url(public/arrow.png);
+      height: 5px;
       display: inline-block;
       margin-right: 0.5em;
       transition: transform 0.3s;
     }
 
     .open .toggle::before {
-      transform: rotate(90deg);
+      transform: translate(70%, 150%) rotate(90deg);
     }
 
     .children {
