@@ -12,6 +12,11 @@ class TreeItem extends LitElement {
       margin-left: 1em;
       background-color: #f1f1f1;
       color: #000;
+      transition: background-color 0.3s;
+    }
+
+    .tree-item:hover {
+      background-color: #e8e8e8;
     }
 
     .toggle {
@@ -22,14 +27,30 @@ class TreeItem extends LitElement {
       content: '▶';
       display: inline-block;
       margin-right: 0.5em;
-      transform: rotate(90deg);
       transition: transform 0.3s;
     }
 
     .open .toggle::before {
-      transform: rotate(0deg);
+      transform: rotate(90deg);
+    }
+
+    .children {
+      display: none;
+    }
+
+    .open .children {
+      display: block;
     }
   `;
+
+  static properties = {
+    open: { type: Boolean },
+  };
+
+  constructor() {
+    super();
+    this.open = false;
+  }
 
   toggleOpen() {
     this.open = !this.open;
@@ -41,13 +62,9 @@ class TreeItem extends LitElement {
         <li class="tree-item ${this.open ? 'open' : ''}">
           <span class="toggle" @click="${this.toggleOpen}"></span>
           <slot></slot>
-          ${this.open
-            ? html`
-                <ul class="tree">
-                  <slot name="tree-item"></slot>
-                </ul>
-              `
-            : ''}
+          <ul class="children ${this.open ? 'open' : ''}">
+            <slot name="tree-item"></slot>
+          </ul>
         </li>
       </ul>
     `;
