@@ -1,79 +1,59 @@
 class TreeItem extends HTMLElement {
     constructor() {
-      super();
-      this.attachShadow({ mode: 'open' });
-      this.isOpen = false;
-    }
-  
-    connectedCallback() {
-      this.render();
-      this.addEventListeners();
-    }
-  
-    addEventListeners() {
-      this.shadowRoot.querySelector('.toggle').addEventListener('click', () => {
-        this.toggleOpen();
+        super();
+        this.attachShadow({ mode: "open" }); // creamos shadow root
         this.render();
-      });
     }
-  
-    toggleOpen() {
-      this.isOpen = !this.isOpen;
-    }
-  
+
     render() {
-      const template = `
-        <style>
-          ul {
-            list-style-type: none;
-          }
-          .tree-item {
-            margin-left: 1em;
-            background-color: #f1f1f1;
-            color: #000;
-            transition: background-color 0.3s;
-          }
-  
-          .tree-item:hover {
-            background-color: #e8e8e8;
-          }
-  
-          .toggle {
-            cursor: pointer;
-          }
-  
-          .toggle::before {
-            content: url(public/arrow.png);;
-            display: inline-block;
-            margin-right: 0.5em;
-            transition: transform 0.3s;
-          }
-  
-          .open .toggle::before {
-            transform: rotate(90deg);
-          }
-  
-          .children {
-            display: none;
-          }
-  
-          .open .children {
-            display: block;
-          }
-        </style>
-        <ul class="tree">
-          <li class="tree-item ${this.isOpen ? 'open' : ''}">
-            <span class="toggle"></span>
-            <slot></slot>
-            <ul class="children ${this.isOpen ? 'open' : ''}">
-              <slot name="tree-item"></slot>
-            </ul>
-          </li>
+        this.shadowRoot.innerHTML = `
+      <style>
+        :host { /* selecciona a la cmoponente anfitriona del shadow dom en este casp es el tree component mismo*/
+          display: block;
+          background-color: black;
+        }
+        ul {
+          list-style-type: none;
+          padding-left: 50px;
+        }
+        li > button { /* deja de mostrar todos los botens de los elementos */
+          display: none;
+        }
+        li.has-children > button {/* mostramos solo si tienen hijos */
+          display: inline;
+        }
+      </style>
+      <li>
+        <button>+</button>
+        <span><slot></slot></span> <!-- span par aque vaya al lado del boton y slot para traer el titulo -->
+        <ul>
+          <!-- Aquí van los elementos children -->
         </ul>
-      `;
-  
-      this.shadowRoot.innerHTML = template;
+      </li>
+    `;
     }
-  }
-  
-  customElements.define('tree-item', TreeItem);
+
+    connectedCallback() {
+        // este evento se gatilla cuando el elemento es insertado en el DOM
+
+        const button = this.shadowRoot.querySelector("button"); // tenemos el botón del shadow dom
+        const ul = this.shadowRoot.querySelector("ul"); // tenemos la lista del shadow dom
+        const children = Array.from(this.children); // traemos la lista de hijos del light dom
+
+        if (children.length > 0) {
+            //  revisamos si tiene hijos
+            this.shadowRoot.querySelector("li").classList.add("has-children"); // lo marcamos como que tiene hijos
+            ul.append(...children); // agregamos los hijos que trajimos del light dom
+            ul.style.display = "none"; // ocultamos la lista
+        }
+
+        button.addEventListener("click", () => {
+            // evento del boton de click
+            const isExpanded = button.textContent === "-"; // esta expandido si su simbolo es -
+            button.textContent = isExpanded ? "+" : "-"; // cambiamos el simbolo
+            ul.style.display = isExpanded ? "none" : "block"; // cambiamos la visibilidad de la lista
+        });
+    }
+}
+
+customElements.define("tree-item", TreeItem);
