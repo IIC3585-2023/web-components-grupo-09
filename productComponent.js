@@ -165,4 +165,3 @@ class RatingComponent extends LitElement {
 }
 
 customElements.define("rating-component", RatingComponent);
-customElements.define("rating-component", RatingComponent);

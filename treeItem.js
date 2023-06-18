@@ -1,7 +1,7 @@
 import { html, css, LitElement } from 'lit';
 
 class TreeItem extends LitElement {
-  static styles = css`
+    static styles = css`
     .tree {
       list-style-type: none;
       margin: 0;
@@ -10,6 +10,8 @@ class TreeItem extends LitElement {
 
     .tree-item {
       margin-left: 1em;
+      background-color: #f1f1f1;
+      color: #000;
     }
 
     .toggle {
@@ -31,7 +33,6 @@ class TreeItem extends LitElement {
 
   toggleOpen() {
     this.open = !this.open;
-    console.log(this.open)
   }
 
   render() {
