@@ -11,6 +11,7 @@ class RatingComponent extends LitElement {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      align-items: center;
     }
 
     .product-image {
@@ -39,7 +40,7 @@ class RatingComponent extends LitElement {
       color: #666;
       margin-bottom: 10px;
       align-self: start;
-      height: 100px;
+      height: 110px;
       text-align: justify;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -74,6 +75,11 @@ class RatingComponent extends LitElement {
       font-size: 24px;
       font-weight: bold;
       color: #222;
+      border: 2px solid brown;
+      background-color: rgba(255, 255, 0, 0.2);
+      padding: 5px;
+      margin-top: 5px;
+      margin-bottom: 10px;
     }
 
     .product-button {
@@ -83,7 +89,7 @@ class RatingComponent extends LitElement {
       background-color: #ff9900;
       color: #fff;
       border: none;
-      padding: 10px 0;
+      padding: 10px;
       font-size: 14px;
       font-weight: bold;
       border-radius: 4px;
@@ -146,6 +152,7 @@ class RatingComponent extends LitElement {
     return html`
       <div>
         <div class="product">
+          <span class="discount">${this.discount}% OFF</span>
           <div class="product-image">
             <img src=${this.image} alt="Product 1" />
           </div>
@@ -171,7 +178,6 @@ class RatingComponent extends LitElement {
             <span class="fa fa-star-o"></span>
           </div>
           <button class="product-button">Add to Cart</button>
-          <span class="discount">${this.discount}% OFF</span>
         </div>
       </div>
     `;
