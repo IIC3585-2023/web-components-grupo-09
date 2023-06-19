@@ -39,13 +39,13 @@ class TreeItem extends HTMLElement {
         }
       </style>
 
-      <div>
+      <li>
         <button>+</button>
         <span><slot></slot></span>
         <ul>
           <!-- Here goes the children elements -->
         </ul>
-      </div>
+      </li>
     `;
   }
 
@@ -55,7 +55,7 @@ class TreeItem extends HTMLElement {
     const children = Array.from(this.children);
 
     if (children.length > 0) {
-      this.shadowRoot.querySelector('div').classList.add('has-children');
+      this.shadowRoot.querySelector('li').classList.add('has-children');
       ul.append(...children);
       ul.style.display = 'none';
     }
