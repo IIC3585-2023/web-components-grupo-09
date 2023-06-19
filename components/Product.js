@@ -105,6 +105,10 @@ class ProductComponent extends LitElement {
       display: flex;
       justify-content: flex-start;
     }
+
+    .hidden {
+      display: none;
+    }
   `;
 
   static get properties() {
@@ -153,7 +157,7 @@ class ProductComponent extends LitElement {
     return html`
       <div>
         <div class="product">
-          <span class="discount">${this.discount}% OFF</span>
+          <span class="discount ${this.discount == 0? "hidden": ""}">${this.discount}% OFF</span>
           <div class="product-image">
             <img src=${this.image} alt="Product 1" />
           </div>
@@ -163,7 +167,7 @@ class ProductComponent extends LitElement {
             <span class="dolar-tag">$</span>
             <span class="price-tag">${this.discountedPrice.toFixed(2)}</span>
           </div>
-          <div class="product-price">
+          <div class="product-price ${this.discount == 0? "hidden": ""}">
             <span class="dolar-tag">$</span>
             <span class="discounted-price">${this.price}</span>
           </div>
