@@ -10,7 +10,6 @@ class TreeItem extends HTMLElement {
       <style>
         :host {
           display: block;
-          background-color: #f2f2f2;
           padding: 10px;
           border: 1px solid #ccc;
           border-radius: 5px;
@@ -44,7 +43,7 @@ class TreeItem extends HTMLElement {
         <button>+</button>
         <span><slot></slot></span>
         <ul>
-          <!-- Aquí van los elementos children -->
+          <!-- Here goes the children elements -->
         </ul>
       </li>
     `;
