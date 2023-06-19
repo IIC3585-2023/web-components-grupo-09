@@ -75,8 +75,6 @@ class SidebarComponent extends HTMLElement {
     `;
 
     const closeButton = this.shadowRoot.querySelector('.close-button');
-    const sidebarContainer =
-      this.shadowRoot.querySelector('.sidebar-container');
 
     closeButton.addEventListener('click', () => {
       this.classList.remove('open');
