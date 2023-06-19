@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 
-class RatingComponent extends LitElement {
+class ProductComponent extends LitElement {
   static styles = css`
     .product {
       border: 1px solid #ddd;
@@ -129,6 +129,7 @@ class RatingComponent extends LitElement {
     this.price = 0;
     this.discountedPrice = 0;
   }
+
   firstUpdated() {
     this.setRating(this.rating);
     this.discountedPrice = this.price - (this.price * this.discount) / 100;
@@ -184,4 +185,4 @@ class RatingComponent extends LitElement {
   }
 }
 
-customElements.define('rating-component', RatingComponent);
+customElements.define('product-component', ProductComponent);
