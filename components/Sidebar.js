@@ -33,7 +33,7 @@ class SidebarComponent extends HTMLElement {
           top: 0;
           left: 0;
           bottom: 0;
-          width: 300px;
+          width: 400px;
           background-color: #f2f2f2;
           overflow-y: auto;
           z-index: 1000;
