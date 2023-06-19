@@ -1,7 +1,7 @@
-import { LitElement, html, css } from "lit";
+import { LitElement, html, css } from 'lit';
 
 class RatingComponent extends LitElement {
-    static styles = css `
+  static styles = css`
     .product {
       border: 1px solid #ddd;
       border-radius: 4px;
@@ -49,6 +49,13 @@ class RatingComponent extends LitElement {
       display: flex;
     }
 
+    .discounted-price {
+      font-size: 18px;
+      color: #999;
+      text-decoration: line-through;
+      margin-top: 5px;
+    }
+
     .dolar-tag {
       margin-top: 2px;
       font-size: 16px;
@@ -94,46 +101,49 @@ class RatingComponent extends LitElement {
     }
   `;
 
-    static get properties() {
-        return {
-            rating: { type: Number },
-            discount: { type: Number },
-            image: { type: String },
-            title: { type: String },
-            description: { type: String },
-            price: { type: Number },
-        };
-    }
+  static get properties() {
+    return {
+      rating: { type: Number },
+      discount: { type: Number },
+      image: { type: String },
+      title: { type: String },
+      description: { type: String },
+      price: { type: Number },
+      discountedPrice: { type: Number },
+    };
+  }
 
-    constructor() {
-        super();
-        this.rating = 0;
-        this.discount = 0;
-        this.image = "";
-        this.title = "";
-        this.description = "";
-        this.price = 0;
-    }
-    firstUpdated() {
-        this.setRating(this.rating);
-    }
+  constructor() {
+    super();
+    this.rating = 0;
+    this.discount = 0;
+    this.image = '';
+    this.title = '';
+    this.description = '';
+    this.price = 0;
+    this.discountedPrice = 0;
+  }
+  firstUpdated() {
+    this.setRating(this.rating);
+    this.discountedPrice = this.price - (this.price * this.discount) / 100;
+  }
 
-    setRating(rating) {
-        let stars = this.shadowRoot.getElementById("stars").children;
+  setRating(rating) {
+    let stars = this.shadowRoot.getElementById('stars').children;
 
-        for (let i = 0; i < stars.length; i++) {
-            if (i < rating) {
-                stars[i].classList.remove("fa-star-o");
-                stars[i].classList.add("fa-star");
-            } else {
-                stars[i].classList.remove("fa-star");
-                stars[i].classList.add("fa-star-o");
-            }
-        }
+    for (let i = 0; i < stars.length; i++) {
+      if (i < rating) {
+        stars[i].classList.remove('fa-star-o');
+        stars[i].classList.add('fa-star');
+      } else {
+        stars[i].classList.remove('fa-star');
+        stars[i].classList.add('fa-star-o');
+      }
     }
+  }
 
-    render() {
-        return html `
+  render() {
+    return html`
       <div>
         <div class="product">
           <div class="product-image">
@@ -143,7 +153,11 @@ class RatingComponent extends LitElement {
           <div class="product-description">${this.description}</div>
           <div class="product-price">
             <span class="dolar-tag">$</span>
-            <span class="price-tag">${this.price}</span>
+            <span class="price-tag">${this.discountedPrice.toFixed(2)}</span>
+          </div>
+          <div class="product-price">
+            <span class="dolar-tag">$</span>
+            <span class="discounted-price">${this.price}</span>
           </div>
           <link
             rel="stylesheet"
@@ -161,7 +175,7 @@ class RatingComponent extends LitElement {
         </div>
       </div>
     `;
-    }
+  }
 }
 
-customElements.define("rating-component", RatingComponent);
+customElements.define('rating-component', RatingComponent);
