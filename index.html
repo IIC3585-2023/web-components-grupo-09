@@ -2,10 +2,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Web Components</title>
+    <title>Gadgets & Grooves</title>
     <link rel="icon" type="image/x-icon" href="public/logo-192x192.png" />
-    <script type="module" src="productComponent.js"></script>
-    <script type="module" src="treeItem.js"></script>
+    <script type="module" src="/components/productComponent.js"></script>
+    <script type="module" src="/components/treeItem.js"></script>
+    <script type="module" src="/components/Sidebar.js"></script>
+    <script type="module" src="/components/Header.js"></script>
     <link rel="stylesheet" href="style.css" />
     <!-- fuente para las estrellas -->
     <link
@@ -15,37 +17,48 @@
   </head>
 
   <body>
-    <tree-item>
-      Motores de Bases de Datos
+    <sidebar-component class="sidebar">
       <tree-item>
-        Relacionales
+        Retail
         <tree-item>
-          Open Source
-          <tree-item> MySQL </tree-item>
-          <tree-item> PostgreSQL </tree-item>
+          Electronics
+          <tree-item>
+            Mobile Phones
+            <tree-item>Apple</tree-item>
+            <tree-item>Samsung</tree-item>
+          </tree-item>
+          <tree-item>
+            Laptops
+            <tree-item>
+              Gamers
+              <tree-item>Alienware</tree-item>
+              <tree-item>Asus</tree-item>
+            </tree-item>
+            <tree-item>
+              Business
+              <tree-item>HP</tree-item>
+              <tree-item>Dell</tree-item>
+            </tree-item>
+          </tree-item>
         </tree-item>
         <tree-item>
-          Propietarios
-          <tree-item> Oracle </tree-item>
-          <tree-item> SQL Server </tree-item>
+          Clothing
+          <tree-item>
+            Men's Clothing
+            <tree-item>T-Shirts</tree-item>
+            <tree-item>Jeans</tree-item>
+          </tree-item>
+          <tree-item>
+            Women's Clothing
+            <tree-item>Dresses</tree-item>
+            <tree-item>Tops</tree-item>
+          </tree-item>
         </tree-item>
       </tree-item>
-      <tree-item>
-        NoSQL
-        <tree-item>
-          Modelo Documentos
-          <tree-item> MongoDB </tree-item>
-          <tree-item> CouchDB </tree-item>
-        </tree-item>
-        <tree-item>
-          Modelo Grafos
-          <tree-item> Neo4J </tree-item>
-          <tree-item> SparQL </tree-item>
-        </tree-item>
-      </tree-item>
-    </tree-item>
+    </sidebar-component>
 
     <div id="app">
+      <header-component> Gadgets & Grooves </header-component>
       <div class="product-list">
         <rating-component
           rating="5"
@@ -81,5 +94,14 @@
         ></rating-component>
       </div>
     </div>
+
+    <script>
+      const hamburgerButton = document.querySelector('.hamburger-button');
+      const sidebarComponent = document.querySelector('.sidebar');
+
+      hamburgerButton.addEventListener('click', () => {
+        sidebarComponent.classList.toggle('open');
+      });
+    </script>
   </body>
 </html>

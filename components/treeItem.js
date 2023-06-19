@@ -8,21 +8,35 @@ class TreeItem extends HTMLElement {
   render() {
     this.shadowRoot.innerHTML = `
       <style>
-        :host { /* selecciona a la cmoponente anfitriona del shadow dom en este casp es el tree component mismo*/
+        :host { /* selecciona a la componente anfitriona del shadow dom en este casp es el tree component mismo*/
           display: block;
-          background-color: black;
+          background-color: #f2f2f2;
+          padding: 10px;
         }
+
         ul {
           list-style-type: none;
-          padding-left: 50px;
+          padding-left: 25px;
         }
-        li > button { /* deja de mostrar todos los botens de los elementos */
+
+        li > button { /* deja de mostrar todos los botones de los elementos */
           display: none;
         }
+
         li.has-children > button {/* mostramos solo si tienen hijos */
           display: inline;
+          margin-right: 5px;
+        }
+
+        button {
+          cursor: pointer;
+        }
+
+        span {
+          color: black;
         }
       </style>
+
       <li>
         <button>+</button>
         <span><slot></slot></span> <!-- span para que vaya al lado del boton y slot para traer el titulo -->
